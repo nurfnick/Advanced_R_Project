@@ -1,0 +1,129 @@
+---
+title: "ch4"
+author: "Dr Wayne Stewart"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = "ws>")
+```
+
+
+
+# Subsetting Vectors
+6 ways of subsetting
+
+```{r}
+v = 1:10
+names(v)= LETTERS[1:10]
+v
+```
+
+```{r}
+v[-c(3,7)]
+```
+
+```{r}
+v["D"]
+```
+
+
+```{r}
+v[c(1,2,10)]
+```
+
+```{r}
+rep(c(TRUE,FALSE),c(3,7))
+v[rep(c(TRUE,FALSE),c(3,7))]
+
+```
+
+```{r}
+v[c(FALSE,TRUE)]
+```
+
+
+```{r}
+v[c(T,F,T)]
+```
+
+
+# Subsetting Matrices and arrays
+
+use vectors
+use a vector
+use a matrix
+
+```{r}
+mat = matrix(1:100,nc=10)
+colnames(mat)=letters[1:10]
+
+mat
+```
+
+
+# Subset the matrix
+
+```{r}
+rep(c(T,F),c(5,5))
+mat[rep(c(T,F),c(5,5)),] # rows filled, columns empty
+```
+
+# `[` produces a lower dimension 
+
+```{r}
+mat[,2]
+```
+
+
+Stop the behaviour
+
+
+```{r}
+mat[,2, drop=FALSE]
+```
+
+
+
+```{r}
+mat[3,4]
+```
+
+```{r}
+mat[1:3, 4]
+```
+
+```{r}
+mat[1:3,4,drop=FALSE]
+```
+
+```{r}
+mat[,"a"]
+mat[,"a", drop=FALSE]
+```
+
+
+# Lists
+
+```{r}
+lst = list(A=1:3, B=1:10, C= mat)
+lst
+```
+
+
+```{r}
+lst[["B"]]
+```
+
+
+```{r}
+lst["B"]
+```
+
+```{r}
+lst["B"]$B[3]
+```
+
+
+# You learn about data frames

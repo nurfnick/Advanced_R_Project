@@ -1,0 +1,111 @@
+---
+title: "Ch2"
+author: "Dr Wayne Stewart"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(rlang)
+library(lobstr)
+```
+
+
+
+
+
+# Bindings
+
+```{r}
+a<-3:10
+b<-a
+obj_addr(a)
+obj_addr(b)
+
+
+```
+
+
+# Names
+
+```{r ,eval = FALSE}
+12.ab=1:6
+
+```
+```{r ,eval=FALSE}
+_23=1:6
+
+```
+
+
+
+```{r}
+ab123=1:6
+ab_23=1:6
+```
+
+
+# Modify when copy
+
+```{r}
+x = 1:6
+y = x
+
+obj_addr(x)
+obj_addr(y)
+
+y[3]<-10
+obj_addr(y)
+
+
+```
+
+
+```{r}
+# using tracemem
+
+tracemem(y)
+
+y[5] = 20
+y[6] = 40
+
+untracemem(y)
+```
+
+# Lists
+
+
+```{r}
+
+lst1 = list(a=10,b=20,c=30)
+lst2 <- lst1
+
+lst2[[2]] <- 15
+
+ref(lst1,lst2)
+
+```
+
+
+
+# Data frames
+
+ 
+ Columns -- just like lists
+ 
+```{r}
+df1 = data.frame(a = 1:10,b = 21:30, c = 51:60)
+df2=df1
+df2[ ,3] = 3*df1[, 3]+10
+
+ref(df1,df2)
+
+
+```
+
+
+rows different

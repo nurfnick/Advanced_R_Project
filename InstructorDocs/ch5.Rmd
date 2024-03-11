@@ -1,0 +1,99 @@
+---
+title: "ch5"
+author: "Dr Wayne Stewart"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,comment = "ws>")
+```
+
+
+
+# Conditionals
+
+`if`( some condition ) action when the condition is true
+
+`if`( some condition ) action when the condition is true `else` action when condition is false
+
+```{r}
+x = "dog"
+y=x
+if(x == "dog" ) { " woof "}
+```
+
+```{r}
+x=c("dog", "cat")
+if(x == "dog" ) { " woof "}
+
+```
+
+
+Chain the `else if`
+
+```{r}
+y = "cat"
+if(y == "dog") { 
+  "woof"
+} else {
+  
+  "meow"
+    
+  }
+```
+
+See the birthday function in ch 5
+
+# vectorizing the input
+
+```{r}
+
+ifelse(1:10 == 2, "2", "not 2")
+x=1:30
+ifelse(x %% 2 == 1, "remainder 1", "remainder other than 1")
+```
+
+# switch
+
+see ch 5 legs() function
+
+```{r}
+
+# taken from the R help doc for switch
+require(stats)
+centre <- function(x, type) {
+  switch(type,
+         mean = mean(x),
+         median = median(x),
+         trimmed = mean(x, trim = .1))
+}
+x <- rcauchy(10)
+centre(x, "mean")
+centre(x, "median")
+centre(x, "trimmed")
+
+
+```
+
+# loops
+
+```{r}
+for (i in 1: 10){
+ print( 2*i+1)
+}
+```
+
+
+```{r}
+# define object sizes before filling them
+
+v = vector(mode="numeric", length=20)
+
+for(i in 1:20){
+  v[i]=2*i +8
+}
+
+print(v)
+```
+
