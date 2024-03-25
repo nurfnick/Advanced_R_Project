@@ -42,8 +42,8 @@ sx <- sd(x)
 sy <- sd(y)
 nx <- length(x)
 ny <- length(y)
-se <- sqrt(((nx-1)*sx^2 + (ny-1)*sy^2)/(nx+ny-2))
-se
+sp <- sqrt(((nx-1)*sx^2 + (ny-1)*sy^2)/(nx+ny-2))
+sp
 ```
 
 Then the $t$ value is
@@ -56,7 +56,8 @@ Doing this in R
 ```{r tcomp}
 xbar <- mean(x)
 ybar <- mean(y)
-t<- (xbar - ybar)/(se*sqrt(1/nx + 1/ny))
+se <- sp*sqrt(1/nx + 1/ny)
+t<- (xbar - ybar)/(se)
 t
 ```
 
@@ -66,4 +67,18 @@ Converting that into a $p$ value:
 2*pt(-1*t,nx+ny-2)
 ```
 
-Everything tests out!
+For the confidence interval, we use the formula
+$$
+(\overline x - \overline y) \pm t^*SE
+$$
+I need to compute the $t^*$
+```{r tstar}
+tstar = qt(0.975, nx+ny-2)
+tstar
+```
+Then we compute the CI
+```{r CI}
+ci = c(xbar - ybar -tstar*se,xbar - ybar +tstar*se)
+ci
+```
+Everything tests out!  I have never found a test in R I didn't agree with just always like to check how it is working for a stats point of view.

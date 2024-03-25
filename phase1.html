@@ -11,7 +11,7 @@
 
 <meta name="author" content="Nicholas Jacob" />
 
-<meta name="date" content="2024-03-24" />
+<meta name="date" content="2024-03-25" />
 
 <title>Phase 1 DSAAdvancedR Package</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">Phase 1 DSAAdvancedR Package</h1>
 <h4 class="author">Nicholas Jacob</h4>
-<h4 class="date">2024-03-24</h4>
+<h4 class="date">2024-03-25</h4>
 
 </div>
 
@@ -474,8 +474,8 @@ s_p = \sqrt{\frac{(n_1-1)s_x^2 + (n_2-1)s_y^2}{n_1+n_2-2}}
 sy &lt;- sd(y)
 nx &lt;- length(x)
 ny &lt;- length(y)
-se &lt;- sqrt(((nx-1)*sx^2 + (ny-1)*sy^2)/(nx+ny-2))
-se</code></pre>
+sp &lt;- sqrt(((nx-1)*sx^2 + (ny-1)*sy^2)/(nx+ny-2))
+sp</code></pre>
 <pre><code>## [1] 1.870235</code></pre>
 <p>Then the <span class="math inline">\(t\)</span> value is</p>
 <p><span class="math display">\[
@@ -484,14 +484,27 @@ t = \frac{\overline{x} - \overline{y}}{SE}
 <p>Doing this in R</p>
 <pre class="r"><code>xbar &lt;- mean(x)
 ybar &lt;- mean(y)
-t&lt;- (xbar - ybar)/(se*sqrt(1/nx + 1/ny))
+se &lt;- sp*sqrt(1/nx + 1/ny)
+t&lt;- (xbar - ybar)/(se)
 t</code></pre>
 <pre><code>## [1] 3.981763</code></pre>
 <p>Converting that into a <span class="math inline">\(p\)</span>
 value:</p>
 <pre class="r"><code>2*pt(-1*t,nx+ny-2)</code></pre>
 <pre><code>## [1] 0.0001689311</code></pre>
-<p>Everything tests out!</p>
+<p>For the confidence interval, we use the formula <span class="math display">\[
+(\overline x - \overline y) \pm t^*SE
+\]</span> I need to compute the <span class="math inline">\(t^*\)</span></p>
+<pre class="r"><code>tstar = qt(0.975, nx+ny-2)
+tstar</code></pre>
+<pre><code>## [1] 1.995469</code></pre>
+<p>Then we compute the CI</p>
+<pre class="r"><code>ci = c(xbar - ybar -tstar*se,xbar - ybar +tstar*se)
+ci</code></pre>
+<pre><code>## [1] 0.8972182 2.6999436</code></pre>
+<p>Everything tests out! I have never found a test in R I didn’t agree
+with just always like to check how it is working for a stats point of
+view.</p>
 </div>
 
 
