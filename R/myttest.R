@@ -5,6 +5,9 @@
 #' @param alpha significance level between 0 and 1 5% by default
 #'
 #' @return list that include original data, alpha, ci, and pvalue
+#'
+#' @importFrom stats var.test t.test
+#'
 #' @export
 #'
 #' @examples
