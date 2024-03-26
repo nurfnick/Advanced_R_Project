@@ -7,7 +7,7 @@
 secondFun(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{a vector}
 }
 \value{
 Add three to the vector
@@ -16,5 +16,6 @@ Add three to the vector
 More fun
 }
 \examples{
-No
+x<- 1:20
+secondFun(x)
 }

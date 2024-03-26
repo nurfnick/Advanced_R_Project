@@ -1,12 +1,13 @@
 #' More fun
 #'
-#' @param x
+#' @param x a vector
 #'
 #' @return Add three to the vector
 #' @export
 #'
 #' @examples
-#' No
+#' x<- 1:20
+#' secondFun(x)
 secondFun = function(x){
   x+3
 }
