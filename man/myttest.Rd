@@ -11,7 +11,10 @@ myttest(x, y, alpha = 0.05)
 
 \item{y}{vector of data}
 
-\item{alpha}{signifigance level between 0 and 1}
+\item{alpha}{significance level between 0 and 1 5% by default}
+}
+\value{
+list that include original data, alpha, ci, and pvalue
 }
 \description{
 A constructor function for t tests

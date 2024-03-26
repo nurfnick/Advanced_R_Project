@@ -7,7 +7,7 @@
 myfunction(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{a vector}
 }
 \value{
 Returns square of a vector
@@ -16,5 +16,5 @@ Returns square of a vector
 Square of a vector
 }
 \examples{
-x<- 1:30 myfunction(x)
+x<- 1:30; myfunction(x)
 }
