@@ -1,0 +1,88 @@
+---
+title: "Phase 2 DSAAdvancedR Package with Expanded Print"
+author: "Nicholas Jacob"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(DSAAdvancedR)
+```
+
+## Test Run
+
+I have loaded my package in the r setup block of code with `library(DSAAdvancedR)`.  We will error test it here.  First we load the data.  This data is as prescribed in the submission details and repeats what is used in the example.
+
+```{r example}
+ set.seed(21);x <-rnorm(30,5,2);
+ set.seed(23); y<- rnorm(40, 3,2);
+ alpha <- 0.05
+ obj <- myttest(x = x, y = y, alpha = 0.05)
+ class(obj)
+```
+
+
+```{r, results = 'asis'}
+ print(obj)
+```
+
+We see the printing of the class, then the dataframe, alpha, confidence interval and p value.  We have included some new descriptions of the outputs and exported the print function for our class.
+
+## Error Testing
+
+I never really trust these packages and often like to make computations from first principals.  I will do that here.  For two variable $t$ test with equal variance, the standard error, $SE$, is
+$$
+SE = s_p\sqrt{\frac1{n_1} +\frac1{n_2}}.
+$$
+Where $s_p$ is the pooled standard deviation,
+$$
+s_p = \sqrt{\frac{(n_1-1)s_x^2 + (n_2-1)s_y^2}{n_1+n_2-2}}
+$$
+
+We compute that here with the data above
+```{r se}
+sx <- sd(x)
+sy <- sd(y)
+nx <- length(x)
+ny <- length(y)
+sp <- sqrt(((nx-1)*sx^2 + (ny-1)*sy^2)/(nx+ny-2))
+sp
+```
+
+Then the $t$ value is
+
+$$
+t = \frac{\overline{x} - \overline{y}}{SE}
+$$
+
+Doing this in R
+```{r tcomp}
+xbar <- mean(x)
+ybar <- mean(y)
+se <- sp*sqrt(1/nx + 1/ny)
+t<- (xbar - ybar)/(se)
+t
+```
+
+Converting that into a $p$ value:
+
+```{r pval}
+2*pt(-1*t,nx+ny-2)
+```
+
+For the confidence interval, we use the formula
+$$
+(\overline x - \overline y) \pm t^*SE
+$$
+I need to compute the $t^*$
+```{r tstar}
+tstar = qt(0.975, nx+ny-2)
+tstar
+```
+Then we compute the CI
+```{r CI}
+ci = c(xbar - ybar -tstar*se,xbar - ybar +tstar*se)
+ci
+```
+Everything tests out!  I have never found a test in R I didn't agree with just always like to check how it is working for a stats point of view.

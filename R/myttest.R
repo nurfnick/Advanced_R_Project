@@ -29,5 +29,6 @@ myttest <-function(x,y,alpha = 0.05){
   pval <- c(tt[["p.value"]]) #get the p value
   lst <- list("df" = df, "alpha" = alpha, "confidenceInterval" = confInt, "pvalue" = pval) #add it all to a list
   class(lst)<-"Rttest"# New class
+  new_Rttest(lst) #Check the validator
   lst #return the list
 }
