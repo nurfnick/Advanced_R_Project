@@ -1,4 +1,4 @@
-#' @title A constructor function for t tests
+#' A constructor function for t tests
 #'
 #' @param x vector of data
 #' @param y vector of data
